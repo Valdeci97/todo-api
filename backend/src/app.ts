@@ -1,6 +1,7 @@
 import express, { Router } from 'express';
 import cors from 'cors';
 import logger from './logger';
+import connectToDatabase from './connection';
 
 export default class App {
   private app: express.Application;
@@ -11,7 +12,8 @@ export default class App {
     this.app.use(cors());
   }
 
-  public start(PORT: number | string = 3001): void {
+  public async start(PORT: number | string = 3001): Promise<void> {
+    await connectToDatabase();
     this.app.listen(PORT, () => logger.info(`Server running at port: ${PORT}`));
   }
 

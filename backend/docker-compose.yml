@@ -9,3 +9,26 @@ services:
       - 3001:3001
     volumes:
       - .:/home/node/app
+  db:
+    container_name: todo_database
+    image: mongo:6.0.2-focal
+    restart: always
+    volumes: 
+      - ./.docker/dbdata:/data/db
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=docker
+      - MONGO_INITDB_DATABASE=todo
+  mongo-express:
+    image: mongo-express
+    restart: always
+    ports:
+      - 8081:8081
+    environment:
+      - ME_CONFIG_MONGODB_SERVER=db
+      - ME_CONFIG_MONGODB_AUTH_USERNAME=root
+      - ME_CONFIG_MONGODB_AUTH_PASSWORD=docker
+      - ME_CONFIG_MONGODB_AUTH_ADMINUSERNAME=root
+      - ME_CONFIG_MONGODB_AUTH_ADMINPASSWORD=docker
+    depends_on:
+      - db
