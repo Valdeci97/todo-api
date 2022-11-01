@@ -1,7 +1,7 @@
 import { Router, RequestHandler } from 'express';
 
 export default class CustomRouter {
-  protected router: Router;
+  private router: Router;
 
   constructor() {
     this.router = Router();
@@ -45,5 +45,9 @@ export default class CustomRouter {
     ...middlewares: RequestHandler[]
   ): void {
     this.router.delete(route, ...middlewares, reqFunc);
+  }
+
+  public getRouter(): Router {
+    return this.router;
   }
 }
