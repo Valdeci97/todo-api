@@ -9,6 +9,8 @@ services:
       - 3001:3001
     volumes:
       - .:/home/node/app
+    depends_on:
+      - db
   db:
     container_name: todo_database
     image: mongo:6.0.2-focal
