@@ -4,11 +4,14 @@ import DatabaseModel from './DatabaseModel';
 
 export interface UserDocument extends User, Document {}
 
-const userSchema = new Schema<UserDocument>({
-  name: String,
-  email: String,
-  password: String,
-});
+const userSchema = new Schema<UserDocument>(
+  {
+    name: { type: String, required: true },
+    email: { type: String, required: true },
+    password: { type: String, required: true },
+  },
+  { versionKey: false }
+);
 
 export default class UserModel extends DatabaseModel<User> {
   constructor(model: Model<UserDocument> = createModel('User', userSchema)) {
