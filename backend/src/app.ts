@@ -1,7 +1,8 @@
-import express, { Router } from 'express';
+import express, { ErrorRequestHandler, Router } from 'express';
 import cors from 'cors';
 import logger from './logger';
 import connectToDatabase from './connection';
+import GlobalMiddleware from './middlewares';
 
 export default class App {
   private app: express.Application;
@@ -23,5 +24,11 @@ export default class App {
 
   public getApp(): express.Application {
     return this.app;
+  }
+
+  public addErrorMiddleware(
+    middleware: ErrorRequestHandler = new GlobalMiddleware().errorHandler
+  ): void {
+    this.app.use(middleware);
   }
 }

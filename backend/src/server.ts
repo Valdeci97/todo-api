@@ -5,4 +5,6 @@ const server = new App();
 
 server.addRouter(userRouter.getRouter());
 
+server.addErrorMiddleware();
+
 export default server;

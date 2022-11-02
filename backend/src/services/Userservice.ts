@@ -29,26 +29,18 @@ export default class UserService extends Service<User> {
   }
 
   public async readOne(id: string): Promise<User> {
-    try {
-      const user = await this.model.readOne(id);
-      if (!user) throw new HttpException(404, 'User not found');
-      user.password = '';
-      return user;
-    } catch (err) {
-      throw new HttpException();
-    }
+    const user = await this.model.readOne(id);
+    if (!user) throw new HttpException(404, 'User not found');
+    user.password = '';
+    return user;
   }
 
   public async update(id: string, obj: User): Promise<User> {
-    try {
-      const hashedPassword = await this.hashPassword(obj);
-      const user = await this.model.update(id, hashedPassword);
-      if (!user) throw new HttpException(404, 'User not found');
-      user.password = '';
-      return user;
-    } catch (err) {
-      throw new HttpException();
-    }
+    const hashedPassword = await this.hashPassword(obj);
+    const user = await this.model.update(id, hashedPassword);
+    if (!user) throw new HttpException(404, 'User not found');
+    user.password = '';
+    return user;
   }
 
   // eslint-disable-next-line class-methods-use-this
