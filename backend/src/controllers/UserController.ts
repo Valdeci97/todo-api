@@ -3,6 +3,7 @@ import Controller from '.';
 import HttpException from '../exceptions/HttpException';
 import { RequestWithBody } from '../interfaces/RequestWithBody';
 import { User } from '../interfaces/UserInterface';
+import logger from '../logger';
 import UserService from '../services/Userservice';
 
 export default class UserController extends Controller<User> {
@@ -26,6 +27,7 @@ export default class UserController extends Controller<User> {
       const user = await this.service.create(req.body);
       return res.status(this.statusCode.CREATED).json(user);
     } catch (err) {
+      logger.fatal(err);
       if (err instanceof HttpException) {
         return next(new HttpException(err.status, err.message));
       }
@@ -43,6 +45,7 @@ export default class UserController extends Controller<User> {
       const user = await this.service.readOne(id);
       return res.status(this.statusCode.OK).json(user);
     } catch (err) {
+      logger.fatal(err);
       if (err instanceof HttpException) {
         return next(new HttpException(err.status, err.message));
       }
@@ -60,6 +63,7 @@ export default class UserController extends Controller<User> {
       const user = await this.service.update(id, req.body);
       return res.status(this.statusCode.OK).json(user);
     } catch (err) {
+      logger.fatal(err);
       if (err instanceof HttpException) {
         return next(new HttpException(err.status, err.message));
       }
@@ -77,6 +81,7 @@ export default class UserController extends Controller<User> {
       await this.service.delete(id);
       return res.status(this.statusCode.NO_CONTENT).end();
     } catch (err) {
+      logger.fatal(err);
       if (err instanceof HttpException) {
         return next(new HttpException(err.status, err.message));
       }

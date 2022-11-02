@@ -28,4 +28,8 @@ export default abstract class DatabaseModel<T> implements Model<T> {
     const obj = await this.model.deleteOne({ _id: id });
     return obj.deletedCount > 0;
   }
+
+  public async findByEmail(email: string): Promise<T | null> {
+    return this.model.findOne({ email });
+  }
 }
