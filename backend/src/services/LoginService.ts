@@ -4,6 +4,7 @@ import { LoginInterface, LoginResponse } from '../interfaces/LoginInterface';
 import { Model } from '../interfaces/ModelInterface';
 import { User } from '../interfaces/UserInterface';
 import UserModel from '../models/UserModel';
+import jsonWebToken from '../utils/jwt';
 
 export default class LoginService implements LoginInterface<User> {
   private model: Model<User>;
@@ -23,7 +24,9 @@ export default class LoginService implements LoginInterface<User> {
       throw new HttpException(400, 'E-mail or password incorrect');
     }
     dbUser.password = '';
-    return { user: dbUser, token: '' };
+    const userId = dbUser._id.toString();
+    const token = jsonWebToken.generate({ id: userId });
+    return { user: dbUser, token };
   }
 
   // eslint-disable-next-line class-methods-use-this

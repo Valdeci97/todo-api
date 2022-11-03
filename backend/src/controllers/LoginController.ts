@@ -27,6 +27,7 @@ export default class LoginController {
       const result = await this.service.login(req.body);
       return res.status(200).json({ login: result });
     } catch (err) {
+      console.log(err);
       if (err instanceof HttpException) {
         return next(new HttpException(err.status, err.message));
       }
