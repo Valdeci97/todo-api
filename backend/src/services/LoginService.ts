@@ -23,7 +23,7 @@ export default class LoginService implements LoginInterface<User> {
       throw new HttpException(400, 'E-mail or password incorrect');
     }
     dbUser.password = '';
-    return { user: { ...dbUser }, token: '' };
+    return { user: dbUser, token: '' };
   }
 
   // eslint-disable-next-line class-methods-use-this
