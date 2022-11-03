@@ -1,5 +1,5 @@
 import 'dotenv/config';
-import { sign } from 'jsonwebtoken';
+import { JwtPayload, sign, verify } from 'jsonwebtoken';
 import authConfig from './authConfig';
 
 export default class jsonWebToken {
@@ -8,5 +8,9 @@ export default class jsonWebToken {
       algorithm: 'HS512',
       expiresIn: authConfig.expiresIn,
     });
+  }
+
+  public static decode(token: string): string | JwtPayload {
+    return verify(token, authConfig.secret);
   }
 }
