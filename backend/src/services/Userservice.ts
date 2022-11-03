@@ -8,6 +8,11 @@ import UserModel from '../models/UserModel';
 export default class UserService extends Service<User> {
   private hashSalts = 10;
 
+  private USER_NOT_FOUND = {
+    message: 'User not found',
+    code: 404,
+  };
+
   constructor(model = new UserModel()) {
     super(model);
   }
@@ -29,15 +34,20 @@ export default class UserService extends Service<User> {
 
   public async readOne(id: string): Promise<Partial<User>> {
     const user = await this.model.readOne(id);
-    if (!user) throw new HttpException(404, 'User not found');
+    if (!user) throw this.notFoundException();
     return { id: user._id, name: user.name, email: user.email };
   }
 
   public async update(id: string, obj: User): Promise<Partial<User>> {
     const hashedPassword = await this.hashPassword(obj);
     const user = await this.model.update(id, hashedPassword);
-    if (!user) throw new HttpException(404, 'User not found');
+    if (!user) throw this.notFoundException();
     return { id: user._id, name: user.name, email: user.email };
+  }
+
+  public async delete(id: string): Promise<void> {
+    const user = await this.model.delete(id);
+    if (!user) throw this.notFoundException();
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -57,5 +67,12 @@ export default class UserService extends Service<User> {
 
   private async findeUserByEmail(email: string): Promise<User | null> {
     return this.model.findByEmail(email);
+  }
+
+  private notFoundException(): HttpException {
+    throw new HttpException(
+      this.USER_NOT_FOUND.code,
+      this.USER_NOT_FOUND.message
+    );
   }
 }
