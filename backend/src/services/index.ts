@@ -8,13 +8,13 @@ export default abstract class Service<T> {
     this.model = model;
   }
 
-  public abstract create(_obj: T): Promise<T>;
+  public abstract create(_obj: T): Promise<Partial<T>>;
 
-  public abstract read(): Promise<T[]>;
+  public abstract read(): Promise<Array<Partial<T>>>;
 
-  public abstract readOne(_id: string): Promise<T>;
+  public abstract readOne(_id: string): Promise<Partial<T>>;
 
-  public abstract update(_id: string, _obj: T): Promise<T>;
+  public abstract update(_id: string, _obj: T): Promise<Partial<T>>;
 
   public async delete(id: string): Promise<void> {
     const deletedObj = await this.model.delete(id);

@@ -23,10 +23,12 @@ export default class LoginService implements LoginInterface<User> {
     if (!isSamePassword) {
       throw new HttpException(400, 'E-mail or password incorrect');
     }
-    dbUser.password = '';
     const userId = dbUser._id.toString();
     const token = jsonWebToken.generate({ id: userId });
-    return { user: dbUser, token };
+    return {
+      user: { id: userId, name: dbUser.name, email: dbUser.email },
+      token,
+    };
   }
 
   // eslint-disable-next-line class-methods-use-this

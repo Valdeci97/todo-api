@@ -1,7 +1,7 @@
 import { User } from './UserInterface';
 
 export type LoginResponse = {
-  user: User;
+  user: Partial<User>;
   token: string;
 };
 

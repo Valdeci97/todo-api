@@ -12,44 +12,41 @@ export default class UserService extends Service<User> {
     super(model);
   }
 
-  public async create(obj: User): Promise<User> {
+  public async create(obj: User): Promise<Partial<User>> {
     const dbUser = await this.findeUserByEmail(obj.email);
     if (dbUser) throw new HttpException(400, 'Email already registered');
     const hashedUser = await this.hashPassword(obj);
     logger.info('Creating user');
     const user = await this.model.create(hashedUser);
     logger.info('User created successfully');
-    user.password = '';
-    return user;
+    return { name: user.name, email: user.email };
   }
 
-  public async read(): Promise<User[]> {
+  public async read(): Promise<Array<Partial<User>>> {
     const users = await this.model.read();
     return this.removePassword(users);
   }
 
-  public async readOne(id: string): Promise<User> {
+  public async readOne(id: string): Promise<Partial<User>> {
     const user = await this.model.readOne(id);
     if (!user) throw new HttpException(404, 'User not found');
-    user.password = '';
-    return user;
+    return { name: user.name, email: user.email };
   }
 
-  public async update(id: string, obj: User): Promise<User> {
+  public async update(id: string, obj: User): Promise<Partial<User>> {
     const hashedPassword = await this.hashPassword(obj);
     const user = await this.model.update(id, hashedPassword);
     if (!user) throw new HttpException(404, 'User not found');
-    user.password = '';
-    return user;
+    return { name: user.name, email: user.email };
   }
 
   // eslint-disable-next-line class-methods-use-this
-  private removePassword(users: User[]): User[] {
-    const usersWithoutPassword = users.map((user) => {
-      // eslint-disable-next-line no-param-reassign
-      user.password = '';
-      return user;
-    });
+  private removePassword(users: Partial<User>[]): Array<Partial<User>> {
+    const usersWithoutPassword = users.map(({ name, email, _id }) => ({
+      name,
+      email,
+      id: _id,
+    }));
     return usersWithoutPassword;
   }
 
