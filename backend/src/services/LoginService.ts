@@ -1,15 +1,15 @@
 import { compare } from 'bcryptjs';
 import HttpException from '../exceptions/HttpException';
 import { LoginInterface, LoginResponse } from '../interfaces/LoginInterface';
-import { Model } from '../interfaces/ModelInterface';
+import { CrudModel } from '../interfaces/CrudModelInterface';
 import { User } from '../interfaces/UserInterface';
 import UserModel from '../models/UserModel';
 import jsonWebToken from '../utils/jwt';
 
 export default class LoginService implements LoginInterface<User> {
-  private model: Model<User>;
+  private model: CrudModel<User>;
 
-  constructor(model: Model<User> = new UserModel()) {
+  constructor(model: CrudModel<User> = new UserModel()) {
     this.model = model;
   }
 

@@ -1,7 +1,7 @@
 import { Model as M, Document } from 'mongoose';
-import { Model } from '../interfaces/ModelInterface';
+import { CrudModel } from '../interfaces/CrudModelInterface';
 
-export default abstract class DatabaseModel<T> implements Model<T> {
+export default abstract class DatabaseModel<T> implements CrudModel<T> {
   protected model: M<T & Document>;
 
   constructor(model: M<T & Document>) {

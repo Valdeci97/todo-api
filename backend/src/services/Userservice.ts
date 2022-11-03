@@ -1,11 +1,11 @@
 import { hash } from 'bcryptjs';
-import Service from '.';
+import CrudService from '.';
 import HttpException from '../exceptions/HttpException';
 import { User } from '../interfaces/UserInterface';
 import logger from '../logger';
 import UserModel from '../models/UserModel';
 
-export default class UserService extends Service<User> {
+export default class UserService extends CrudService<User> {
   private hashSalts = 10;
 
   private USER_NOT_FOUND = {

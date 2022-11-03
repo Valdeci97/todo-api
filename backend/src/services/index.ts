@@ -1,9 +1,9 @@
-import { Model } from '../interfaces/ModelInterface';
+import { CrudModel } from '../interfaces/CrudModelInterface';
 
-export default abstract class Service<T> {
-  protected model: Model<T>;
+export default abstract class CrudService<T> {
+  protected model: CrudModel<T>;
 
-  constructor(model: Model<T>) {
+  constructor(model: CrudModel<T>) {
     this.model = model;
   }
 

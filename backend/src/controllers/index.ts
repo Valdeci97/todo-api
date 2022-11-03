@@ -1,10 +1,10 @@
 import { Request, NextFunction, Response } from 'express';
 import HttpException from '../exceptions/HttpException';
 import { RequestWithBody } from '../interfaces/RequestWithBody';
-import Service from '../services';
+import CrudService from '../services';
 
 export default abstract class Controller<T> {
-  protected service: Service<T>;
+  protected service: CrudService<T>;
 
   protected readonly statusCode = {
     OK: 200,
@@ -13,7 +13,7 @@ export default abstract class Controller<T> {
     NOT_FOUND: 404,
   };
 
-  constructor(service: Service<T>) {
+  constructor(service: CrudService<T>) {
     this.service = service;
   }
 

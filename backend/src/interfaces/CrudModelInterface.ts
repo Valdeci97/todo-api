@@ -1,4 +1,4 @@
-export interface Model<T> {
+export interface CrudModel<T> {
   create(obj: T): Promise<Partial<T>>;
   read(): Promise<Array<Partial<T>>>;
   readOne(id: string): Promise<Partial<T> | null>;
