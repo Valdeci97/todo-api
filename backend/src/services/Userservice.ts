@@ -14,12 +14,12 @@ export default class UserService extends Service<User> {
 
   public async create(obj: User): Promise<Partial<User>> {
     const dbUser = await this.findeUserByEmail(obj.email);
-    if (dbUser) throw new HttpException(400, 'Email already registered');
+    if (dbUser) throw new HttpException(400, 'E-mail already registered');
     const hashedUser = await this.hashPassword(obj);
     logger.info('Creating user');
     const user = await this.model.create(hashedUser);
     logger.info('User created successfully');
-    return { name: user.name, email: user.email };
+    return { id: user._id, name: user.name, email: user.email };
   }
 
   public async read(): Promise<Array<Partial<User>>> {
@@ -30,14 +30,14 @@ export default class UserService extends Service<User> {
   public async readOne(id: string): Promise<Partial<User>> {
     const user = await this.model.readOne(id);
     if (!user) throw new HttpException(404, 'User not found');
-    return { name: user.name, email: user.email };
+    return { id: user._id, name: user.name, email: user.email };
   }
 
   public async update(id: string, obj: User): Promise<Partial<User>> {
     const hashedPassword = await this.hashPassword(obj);
     const user = await this.model.update(id, hashedPassword);
     if (!user) throw new HttpException(404, 'User not found');
-    return { name: user.name, email: user.email };
+    return { id: user._id, name: user.name, email: user.email };
   }
 
   // eslint-disable-next-line class-methods-use-this
