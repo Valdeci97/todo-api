@@ -28,4 +28,9 @@ export default abstract class RelationDatabaseModel<T>
     const obj = await this.model.deleteOne({ _id: id });
     return obj.deletedCount > 0;
   }
+
+  public abstract findByDate(
+    _relationId: string,
+    _when: Date
+  ): Promise<T | null>;
 }

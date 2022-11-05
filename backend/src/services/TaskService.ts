@@ -4,9 +4,15 @@ import TaskModel from '../models/TaskModel';
 import HttpException from '../exceptions/HttpException';
 
 export default class TaskService extends RelationService<Task> {
-  private TASK_NOT_FOUND = {
-    message: 'task not found',
-    code: 404,
+  private TASK = {
+    NOT_FOUND: {
+      message: 'task not found',
+      code: 404,
+    },
+    DATE: {
+      message: 'there is another task booked at same date',
+      code: 400,
+    },
   };
 
   constructor(model = new TaskModel()) {
@@ -14,6 +20,10 @@ export default class TaskService extends RelationService<Task> {
   }
 
   public async create(obj: Task): Promise<Task> {
+    const dbTask = await this.verifyTaskDate(obj.userId, obj.when);
+    if (dbTask) {
+      throw new HttpException(this.TASK.DATE.code, this.TASK.DATE.message);
+    }
     const task = await this.model.create(obj);
     return task;
   }
@@ -42,8 +52,15 @@ export default class TaskService extends RelationService<Task> {
 
   private notFoundException(): HttpException {
     throw new HttpException(
-      this.TASK_NOT_FOUND.code,
-      this.TASK_NOT_FOUND.message
+      this.TASK.NOT_FOUND.code,
+      this.TASK.NOT_FOUND.message
     );
+  }
+
+  private async verifyTaskDate(
+    relationId: string,
+    when: Date
+  ): Promise<Task | null> {
+    return this.model.findByDate(relationId, when);
   }
 }

@@ -29,4 +29,14 @@ export default class TaskModel extends RelationDatabaseModel<Task> {
   public async update(id: string, obj: Task): Promise<Task | null> {
     return this.model.findOneAndUpdate({ _id: id }, obj, { new: true });
   }
+
+  public async findByDate(
+    relationId: string,
+    when: Date
+  ): Promise<Task | null> {
+    return this.model.findOne({
+      when: { $eq: when },
+      userId: { $in: relationId },
+    });
+  }
 }
