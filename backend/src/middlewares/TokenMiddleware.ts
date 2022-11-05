@@ -9,7 +9,9 @@ export default class TokenMiddleware {
     next: NextFunction
   ): Response | void => {
     const { authorization } = req.headers;
-    if (!authorization) return next(new HttpException(404, 'token not found'));
+    if (!authorization) {
+      return res.status(404).json({ message: 'token not found' });
+    }
     try {
       JsonWebToken.decode(authorization);
       next();

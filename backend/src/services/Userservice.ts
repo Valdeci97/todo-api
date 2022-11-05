@@ -9,7 +9,7 @@ export default class UserService extends CrudService<User> {
   private hashSalts = 10;
 
   private USER_NOT_FOUND = {
-    message: 'User not found',
+    message: 'user not found',
     code: 404,
   };
 
