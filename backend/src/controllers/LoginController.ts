@@ -29,7 +29,7 @@ export default class LoginController {
     } catch (err) {
       console.log(err);
       if (err instanceof HttpException) {
-        return next(new HttpException(err.status, err.message));
+        return next(err);
       }
       next(new HttpException());
     }

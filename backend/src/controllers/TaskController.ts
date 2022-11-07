@@ -32,7 +32,7 @@ export default class TaskController {
       return res.status(201).json({ task });
     } catch (err) {
       if (err instanceof HttpException) {
-        return next(new HttpException(err.status, err.message));
+        return next(err);
       }
       next(new HttpException());
     }
@@ -51,7 +51,7 @@ export default class TaskController {
       return res.status(200).json(tasks);
     } catch (err) {
       if (err instanceof HttpException) {
-        return next(new HttpException(err.status, err.message));
+        return next(err);
       }
       next(new HttpException());
     }
@@ -68,7 +68,7 @@ export default class TaskController {
       return res.status(200).json({ task });
     } catch (err) {
       if (err instanceof HttpException) {
-        return next(new HttpException(err.status, err.message));
+        return next(err);
       }
       next(new HttpException());
     }
@@ -85,7 +85,7 @@ export default class TaskController {
       return res.status(200).json({ task });
     } catch (err) {
       if (err instanceof HttpException) {
-        return next(new HttpException(err.status, err.message));
+        return next(err);
       }
       next(new HttpException());
     }
@@ -102,7 +102,7 @@ export default class TaskController {
       return res.status(204).end();
     } catch (err) {
       if (err instanceof HttpException) {
-        return next(new HttpException(err.status, err.message));
+        return next(err);
       }
       next(new HttpException());
     }

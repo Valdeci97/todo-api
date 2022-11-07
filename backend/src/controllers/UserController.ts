@@ -29,7 +29,7 @@ export default class UserController extends Controller<User> {
     } catch (err) {
       logger.fatal(err);
       if (err instanceof HttpException) {
-        return next(new HttpException(err.status, err.message));
+        return next(err);
       }
       next(new HttpException());
     }
@@ -47,7 +47,7 @@ export default class UserController extends Controller<User> {
     } catch (err) {
       logger.fatal(err);
       if (err instanceof HttpException) {
-        return next(new HttpException(err.status, err.message));
+        return next(err);
       }
       next(new HttpException());
     }
@@ -65,7 +65,7 @@ export default class UserController extends Controller<User> {
     } catch (err) {
       logger.fatal(err);
       if (err instanceof HttpException) {
-        return next(new HttpException(err.status, err.message));
+        return next(err);
       }
       next(new HttpException());
     }
@@ -83,7 +83,7 @@ export default class UserController extends Controller<User> {
     } catch (err) {
       logger.fatal(err);
       if (err instanceof HttpException) {
-        return next(new HttpException(err.status, err.message));
+        return next(err);
       }
       next(new HttpException());
     }
