@@ -49,6 +49,11 @@ taskRouter.addPutRoute(
   taskMiddleware.validateDone
 );
 
-taskRouter.addDeleteRoute(taskRouteWithIdParam, taskController.delete);
+taskRouter.addDeleteRoute(
+  taskRouteWithIdParam,
+  taskController.delete,
+  guidMiddleware.validateGuid,
+  tokenMiddleware.validate
+);
 
 export default taskRouter;
