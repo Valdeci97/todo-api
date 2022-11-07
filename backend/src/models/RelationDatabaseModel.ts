@@ -1,8 +1,9 @@
 import { Document, Model } from 'mongoose';
+import { DateTimeModel } from '../interfaces/DateTimeModel';
 import { RelationModel } from '../interfaces/RelationModelInterface';
 
 export default abstract class RelationDatabaseModel<T>
-  implements RelationModel<T>
+  implements RelationModel<T>, DateTimeModel<T>
 {
   protected model: Model<T & Document>;
 
@@ -33,4 +34,14 @@ export default abstract class RelationDatabaseModel<T>
     _relationId: string,
     _when: Date
   ): Promise<T | null>;
+
+  public abstract findByDay(_relationId: string): Promise<T[]>;
+
+  public abstract findByWeek(_relationId: string): Promise<T[]>;
+
+  public abstract findByMonth(_relationId: string): Promise<T[]>;
+
+  public abstract findByYear(_relationId: string): Promise<T[]>;
+
+  public abstract findLate(_relationId: string): Promise<T[]>;
 }
