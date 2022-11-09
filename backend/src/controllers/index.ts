@@ -33,7 +33,7 @@ export default abstract class Controller<T> {
       return res.status(this.statusCode.OK).json(obj);
     } catch (err) {
       if (err instanceof HttpException) {
-        return next(new HttpException(err.status, err.message));
+        return next(err);
       }
       next(new HttpException());
     }
