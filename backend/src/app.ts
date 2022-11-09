@@ -1,8 +1,10 @@
 import express, { ErrorRequestHandler, Router } from 'express';
 import cors from 'cors';
+import swaggerUi from 'swagger-ui-express';
 import logger from './logger';
 import connectToDatabase from './connection';
 import GlobalMiddleware from './middlewares';
+import swaggerDocument from './utils/swagger/swagger.json';
 
 export default class App {
   private app: express.Application;
@@ -11,6 +13,7 @@ export default class App {
     this.app = express();
     this.app.use(express.json());
     this.app.use(cors());
+    this.setupDocumentation();
   }
 
   public async start(PORT: number | string = 3001): Promise<void> {
@@ -30,5 +33,13 @@ export default class App {
     middleware: ErrorRequestHandler = new GlobalMiddleware().errorHandler
   ): void {
     this.app.use(middleware);
+  }
+
+  private setupDocumentation(): void {
+    this.app.use(
+      '/api-docs',
+      swaggerUi.serve,
+      swaggerUi.setup(swaggerDocument)
+    );
   }
 }
