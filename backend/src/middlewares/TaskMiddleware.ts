@@ -81,7 +81,6 @@ export default class TaskMiddleware {
   ): Response | void => {
     const { error } = done.validate(req.body, { convert: false });
     if (error) {
-      console.log(error);
       const [code, message] = error.message.split('/');
       return res.status(Number(code)).json({ message });
     }
