@@ -46,7 +46,8 @@ export default class TaskController {
     const { authorization } = req.headers;
     if (!authorization) return next(new HttpException(404, 'token not found'));
     try {
-      const token = jsonWebToken.decode(authorization);
+      const [, auth] = authorization.split(' ');
+      const token = jsonWebToken.decode(auth);
       const tasks = await this.service.read(token.id);
       return res.status(200).json(tasks);
     } catch (err) {

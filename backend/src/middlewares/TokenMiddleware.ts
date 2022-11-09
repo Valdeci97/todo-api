@@ -12,8 +12,9 @@ export default class TokenMiddleware {
     if (!authorization) {
       return res.status(404).json({ message: 'token not found' });
     }
+    const [, token] = authorization.split(' ');
     try {
-      JsonWebToken.decode(authorization);
+      JsonWebToken.decode(token);
       next();
     } catch (err) {
       next(new HttpException(401, 'invalid token'));
