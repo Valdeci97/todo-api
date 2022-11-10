@@ -5,6 +5,7 @@ import logger from './logger';
 import connectToDatabase from './connection';
 import GlobalMiddleware from './middlewares';
 import swaggerDocument from './utils/swagger/swagger.json';
+import RateLimiter from './middlewares/RateLimiter';
 
 export default class App {
   private app: express.Application;
@@ -14,6 +15,7 @@ export default class App {
     this.app.use(express.json());
     this.app.use(cors());
     this.setupDocumentation();
+    this.app.use(RateLimiter.createRateLimiter());
   }
 
   public async start(PORT: number | string = 3001): Promise<void> {
