@@ -1,6 +1,7 @@
 import express, { ErrorRequestHandler, Router } from 'express';
 import cors from 'cors';
 import swaggerUi from 'swagger-ui-express';
+import helmet from 'helmet';
 import logger from './logger';
 import connectToDatabase from './connection';
 import GlobalMiddleware from './middlewares';
@@ -12,6 +13,7 @@ export default class App {
 
   constructor() {
     this.app = express();
+    this.app.use(helmet());
     this.app.use(express.json());
     this.app.use(cors());
     this.setupDocumentation();

@@ -6,7 +6,7 @@ export default class RateLimiter {
   private static MAX_REQUESTS = 5;
 
   private static MESSAGE = {
-    message: `you have exceeded ${this.MAX_REQUESTS} requests limit per second`,
+    message: `you have exceeded the limit of ${this.MAX_REQUESTS} requests per second`,
   };
 
   public static createRateLimiter(): RateLimitRequestHandler {
