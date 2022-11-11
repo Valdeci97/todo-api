@@ -1,20 +1,25 @@
-import { hash } from 'bcryptjs';
 import CrudService from '.';
 import HttpException from '../exceptions/HttpException';
+import { HashHandler } from '../interfaces/HashHandler';
 import { User } from '../interfaces/UserInterface';
 import logger from '../logger';
 import UserModel from '../models/UserModel';
+import HashProvider from '../utils/HashProvider';
 
 export default class UserService extends CrudService<User> {
-  private hashSalts = 10;
+  private hashHandler: HashHandler;
 
   private USER_NOT_FOUND = {
     message: 'user not found',
     code: 404,
   };
 
-  constructor(model = new UserModel()) {
+  constructor(
+    model = new UserModel(),
+    hashHandler: HashHandler = new HashProvider()
+  ) {
     super(model);
+    this.hashHandler = hashHandler;
   }
 
   public async create(obj: User): Promise<Partial<User>> {
@@ -61,7 +66,7 @@ export default class UserService extends CrudService<User> {
   }
 
   private async hashPassword(user: User): Promise<User> {
-    const hashedPassword = await hash(user.password, this.hashSalts);
+    const hashedPassword = await this.hashHandler.hashPayload(user.password);
     return { name: user.name, email: user.email, password: hashedPassword };
   }
 
