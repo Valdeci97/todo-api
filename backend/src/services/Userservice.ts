@@ -2,7 +2,6 @@ import CrudService from '.';
 import HttpException from '../exceptions/HttpException';
 import { HashHandler } from '../interfaces/HashHandler';
 import { User } from '../interfaces/UserInterface';
-import logger from '../logger';
 import UserModel from '../models/UserModel';
 import HashProvider from '../utils/HashProvider';
 
@@ -26,9 +25,7 @@ export default class UserService extends CrudService<User> {
     const dbUser = await this.findeUserByEmail(obj.email);
     if (dbUser) throw new HttpException(400, 'E-mail already registered');
     const hashedUser = await this.hashPassword(obj);
-    logger.info('Creating user');
     const user = await this.model.create(hashedUser);
-    logger.info('User created successfully');
     return { id: user._id, name: user.name, email: user.email };
   }
 
