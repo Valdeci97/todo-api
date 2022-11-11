@@ -4,7 +4,7 @@ import DatabaseModel from './DatabaseModel';
 
 export type UserDocument = User & Document;
 
-const userSchema = new Schema<UserDocument>(
+export const userSchema = new Schema<UserDocument>(
   {
     name: { type: String, required: true },
     email: { type: String, required: true },
