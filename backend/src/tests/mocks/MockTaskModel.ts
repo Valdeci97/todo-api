@@ -1,14 +1,4 @@
 import { Model, model as createModel, Types } from 'mongoose';
-import {
-  startOfDay,
-  endOfDay,
-  startOfWeek,
-  endOfWeek,
-  startOfMonth,
-  endOfMonth,
-  startOfYear,
-  endOfYear,
-} from 'date-fns';
 import RelationDatabaseModel from '../../models/RelationDatabaseModel';
 import { Task } from '../../interfaces/TaskInterface';
 import { taskSchema, TaskDocument } from '../../models/TaskModel';
@@ -60,55 +50,5 @@ export default class MockTaskModel extends RelationDatabaseModel<Task> {
     );
     if (!task) return null;
     return task;
-  }
-
-  public async findByDay(relationId: string): Promise<Task[]> {
-    const now = new Date();
-    const tasks = this.tasks.filter(
-      (task) =>
-        task.when >= startOfDay(now) &&
-        task.when <= endOfDay(now) &&
-        task.userId === relationId
-    );
-    return tasks;
-  }
-
-  public async findByWeek(relationId: string): Promise<Task[]> {
-    const now = new Date();
-    const tasks = this.tasks.filter(
-      (task) =>
-        task.when >= startOfWeek(now) &&
-        task.when <= endOfWeek(now) &&
-        task.userId === relationId
-    );
-    return tasks;
-  }
-
-  public async findByMonth(relationId: string): Promise<Task[]> {
-    const now = new Date();
-    const tasks = this.tasks.filter(
-      (task) =>
-        task.when >= startOfMonth(now) &&
-        task.when <= endOfMonth(now) &&
-        task.userId === relationId
-    );
-    return tasks;
-  }
-
-  public async findByYear(relationId: string): Promise<Task[]> {
-    const now = new Date();
-    const tasks = this.tasks.filter(
-      (task) =>
-        task.when >= startOfYear(now) &&
-        task.when <= endOfYear(now) &&
-        task.userId === relationId
-    );
-    return tasks;
-  }
-
-  public async findLate(_relationId: string): Promise<Task[]> {
-    const now = new Date();
-    const tasks = this.tasks.filter((task) => task.when < now);
-    return tasks;
   }
 }
