@@ -4,7 +4,7 @@ export interface Task {
   category: string;
   title: string;
   description: string;
-  when: Date;
+  when: Date | string;
   done: boolean;
   createdAt: Date;
 }

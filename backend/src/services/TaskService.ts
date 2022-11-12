@@ -25,24 +25,24 @@ export default class TaskService extends RelationService<Task> {
       throw new HttpException(this.TASK.DATE.code, this.TASK.DATE.message);
     }
     const task = await this.model.create(obj);
-    return task;
+    return this.setTaskId(task);
   }
 
   public async read(relationId: string): Promise<Task[]> {
     const tasks = await this.model.read(relationId);
-    return tasks;
+    return this.setTasksId(tasks);
   }
 
   public async readOne(id: string): Promise<Task> {
     const task = await this.model.readOne(id);
     if (!task) throw this.notFoundException();
-    return task;
+    return this.setTaskId(task);
   }
 
   public async update(id: string, obj: Task): Promise<Task> {
     const task = await this.model.update(id, obj);
     if (!task) throw this.notFoundException();
-    return task;
+    return this.setTaskId(task);
   }
 
   public async delete(id: string): Promise<void> {
@@ -59,8 +59,27 @@ export default class TaskService extends RelationService<Task> {
 
   private async verifyTaskDate(
     relationId: string,
-    when: Date
+    when: Date | string
   ): Promise<Task | null> {
     return this.model.findByDate(relationId, when);
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  private setTaskId(task: Task): Task {
+    return {
+      id: task._id,
+      userId: task.userId,
+      category: task.category,
+      title: task.title,
+      description: task.description,
+      when: task.when,
+      done: task.done,
+      createdAt: task.createdAt,
+    };
+  }
+
+  private setTasksId(tasks: Task[]): Task[] {
+    const tasksWithId = tasks.map((task) => this.setTaskId(task));
+    return tasksWithId;
   }
 }

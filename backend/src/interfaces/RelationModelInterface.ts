@@ -4,5 +4,5 @@ export interface RelationModel<T> {
   readOne(id: string): Promise<T | null>;
   update(id: string, obj: T): Promise<T | null>;
   delete(id: string): Promise<boolean>;
-  findByDate(relationId: string, when: Date): Promise<T | null>;
+  findByDate(relationId: string, when: Date | string): Promise<T | null>;
 }

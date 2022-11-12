@@ -14,7 +14,7 @@ import RelationDatabaseModel from './RelationDatabaseModel';
 
 export type TaskDocument = Task & Document;
 
-const taskSchema = new Schema<TaskDocument>(
+export const taskSchema = new Schema<TaskDocument>(
   {
     userId: { type: String, required: true },
     category: { type: String, required: true },
@@ -42,7 +42,7 @@ export default class TaskModel extends RelationDatabaseModel<Task> {
 
   public async findByDate(
     relationId: string,
-    when: Date
+    when: Date | string
   ): Promise<Task | null> {
     return this.model.findOne({
       when: { $eq: when },
