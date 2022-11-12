@@ -7,13 +7,23 @@ export default abstract class RelationTimeService<T> {
     this.model = model;
   }
 
-  public abstract findByDay(_relationId: string): Promise<T[]>;
+  public findByDay(relationId: string): Promise<T[]> {
+    return this.model.findByDay(relationId);
+  }
 
-  public abstract findByWeek(_relationId: string): Promise<T[]>;
+  public findByWeek(relationId: string): Promise<T[]> {
+    return this.model.findByWeek(relationId);
+  }
 
-  public abstract findByMonth(_relationId: string): Promise<T[]>;
+  public async findByMonth(relationId: string): Promise<T[]> {
+    return this.model.findByMonth(relationId);
+  }
 
-  public abstract findByYear(_relationId: string): Promise<T[]>;
+  public async findByYear(relationId: string): Promise<T[]> {
+    return this.model.findByYear(relationId);
+  }
 
-  public abstract findLate(_relationId: string): Promise<T[]>;
+  public async findLate(relationId: string): Promise<T[]> {
+    return this.model.findLate(relationId);
+  }
 }

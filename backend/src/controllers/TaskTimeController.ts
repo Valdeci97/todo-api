@@ -1,9 +1,11 @@
 import { Request, Response, NextFunction } from 'express';
 import HttpException from '../exceptions/HttpException';
+import { Task } from '../interfaces/TaskInterface';
+import RelationTimeService from '../services/RelationTimeService';
 import TaskTimeService from '../services/TaskTimeService';
 
 export default class TaskTimeController {
-  private service: TaskTimeService;
+  private service: RelationTimeService<Task>;
 
   private route: string;
 

@@ -2,11 +2,12 @@ import { Request, Response, NextFunction } from 'express';
 import HttpException from '../exceptions/HttpException';
 import { RequestWithBody } from '../interfaces/RequestWithBody';
 import { Task } from '../interfaces/TaskInterface';
+import RelationService from '../services/RelationService';
 import TaskService from '../services/TaskService';
 import jsonWebToken from '../utils/jwt';
 
 export default class TaskController {
-  private service: TaskService;
+  private service: RelationService<Task>;
 
   private route: string;
 
