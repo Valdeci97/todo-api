@@ -4,7 +4,14 @@ import DatabaseModel from '../../models/DatabaseModel';
 import { userSchema } from '../../models/UserModel';
 
 export default class MockUserModel extends DatabaseModel<User> {
-  private users: User[] = [];
+  private users: User[] = [
+    {
+      name: 'teste login',
+      email: 'teste@login.com',
+      password: '12345678',
+      _id: '6363daa6ab1e71a12204e9e4',
+    },
+  ];
 
   constructor(model: Model<User & Document> = createModel('User', userSchema)) {
     super(model);

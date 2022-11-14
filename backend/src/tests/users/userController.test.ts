@@ -32,7 +32,7 @@ describe('Testing /users endpoint', () => {
       response = await request(app).get(route).set(auth, validToken);
       expect(response.status).toBe(200);
       expect(Array.isArray(response.body)).toBe(true);
-      expect(response.body).toHaveLength(1);
+      expect(response.body).toHaveLength(2);
     });
   });
 
@@ -57,8 +57,6 @@ describe('Testing /users endpoint', () => {
 
   describe('Updating user', () => {
     it('should be able to update user information', async () => {
-      response = await request(app).get(route).set(auth, validToken);
-      id = response.body[0].id;
       response = await request(app)
         .patch(`${route}/${id}`)
         .set(auth, validToken)

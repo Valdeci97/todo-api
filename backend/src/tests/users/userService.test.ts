@@ -38,7 +38,7 @@ describe('Testing user services methods', () => {
       const users = await userService.read();
 
       expect(Array.isArray(users)).toBe(true);
-      expect(users).toHaveLength(1);
+      expect(users).toHaveLength(2);
       expect(users[0].password).toBeUndefined();
     });
   });
@@ -87,7 +87,7 @@ describe('Testing user services methods', () => {
 
       const users = await userService.read();
 
-      expect(users).toHaveLength(0);
+      expect(users).toHaveLength(1);
     });
 
     it('should return an HttpException when user does not exist', async () => {
