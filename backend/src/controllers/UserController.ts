@@ -25,7 +25,7 @@ export default class UserController extends Controller<User> {
   ): Promise<Response | void> => {
     try {
       const user = await this.service.create(req.body);
-      return res.status(this.statusCode.CREATED).json(user);
+      return res.status(this.statusCode.CREATED).json({ user });
     } catch (err) {
       logger.fatal(err);
       if (err instanceof HttpException) {
@@ -43,7 +43,7 @@ export default class UserController extends Controller<User> {
     const { id } = req.params;
     try {
       const user = await this.service.readOne(id);
-      return res.status(this.statusCode.OK).json(user);
+      return res.status(this.statusCode.OK).json({ user });
     } catch (err) {
       logger.fatal(err);
       if (err instanceof HttpException) {
@@ -61,7 +61,7 @@ export default class UserController extends Controller<User> {
     const { id } = req.params;
     try {
       const user = await this.service.update(id, req.body);
-      return res.status(this.statusCode.OK).json(user);
+      return res.status(this.statusCode.OK).json({ user });
     } catch (err) {
       logger.fatal(err);
       if (err instanceof HttpException) {

@@ -21,20 +21,20 @@ export default class MockUserModel extends DatabaseModel<User> {
   }
 
   public async readOne(id: string): Promise<User | null> {
-    const user = this.users.find((user) => user.id === id);
+    const user = this.users.find((user) => user._id === id);
     if (!user) return null;
     return user;
   }
 
   public async update(id: string, obj: User): Promise<User | null> {
-    const userIndex = this.users.findIndex((user) => user.id === id);
+    const userIndex = this.users.findIndex((user) => user._id === id);
     if (userIndex === -1) return null;
     this.users[userIndex].name = obj.name;
     return obj;
   }
 
   public async delete(id: string): Promise<boolean> {
-    const userIndex = this.users.findIndex((user) => user.id === id);
+    const userIndex = this.users.findIndex((user) => user._id === id);
     if (userIndex === -1) return false;
     this.users.splice(userIndex, 1);
     return true;

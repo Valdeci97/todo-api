@@ -23,3 +23,8 @@ export const wrongPasswordUser: User = {
   email: 'user@user.com',
   password: '123456789',
 };
+
+export const validUserRequestInfo = {
+  token: 'Bearer token',
+  id: '63668fa4e27e79b50232f561',
+};

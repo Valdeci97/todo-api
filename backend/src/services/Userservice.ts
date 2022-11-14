@@ -23,7 +23,7 @@ export default class UserService extends CrudService<User> {
 
   public async create(obj: User): Promise<Partial<User>> {
     const dbUser = await this.findeUserByEmail(obj.email);
-    if (dbUser) throw new HttpException(400, 'E-mail already registered');
+    if (dbUser) throw new HttpException(409, 'E-mail already registered');
     const hashedUser = await this.hashPassword(obj);
     const user = await this.model.create(hashedUser);
     return { id: user._id, name: user.name, email: user.email };

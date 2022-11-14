@@ -45,8 +45,9 @@ describe('Testing user services methods', () => {
 
   describe('Reading user by id', () => {
     it('should return the correct user', async () => {
-      await userService.create(user);
-      const dbUser = await userService.readOne(user.id);
+      const createdUser = await userService.create(user);
+      const id = createdUser.id ? createdUser.id : user.id;
+      const dbUser = await userService.readOne(id);
 
       expect(dbUser).toHaveProperty('id');
       expect(dbUser).toHaveProperty('name');
@@ -62,7 +63,8 @@ describe('Testing user services methods', () => {
   describe('Updating user', () => {
     it('should return the correct user with new data', async () => {
       const createdUser = await userService.create(user);
-      const updatedUser = await userService.update(user.id, userToUpdate);
+      const id = createdUser.id ? createdUser.id : user.id;
+      const updatedUser = await userService.update(id, userToUpdate);
 
       expect(createdUser.name).toBe('primeiro usuário');
       expect(updatedUser.name).toBe('primeiro usuário atualizado');
@@ -77,8 +79,9 @@ describe('Testing user services methods', () => {
 
   describe('Deleting user', () => {
     it('should remove user from database', async () => {
-      await userService.create(user);
-      const deletedUser = await userService.delete(user.id);
+      const createdUser = await userService.create(user);
+      const id = createdUser.id ? createdUser.id : user.id;
+      const deletedUser = await userService.delete(id);
 
       expect(deletedUser).toBeUndefined();
 
