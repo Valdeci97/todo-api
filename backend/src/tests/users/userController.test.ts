@@ -46,7 +46,7 @@ describe('Testing /users endpoint', () => {
       expect(response.body.user).toHaveProperty('id');
     });
 
-    it('shoul not be able to read user informartion', async () => {
+    it('shoul not be able to read user information', async () => {
       response = await request(app)
         .get(`${route}/${validId}`)
         .set(auth, validToken);

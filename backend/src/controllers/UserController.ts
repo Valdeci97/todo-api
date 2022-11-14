@@ -27,10 +27,10 @@ export default class UserController extends Controller<User> {
       const user = await this.service.create(req.body);
       return res.status(this.statusCode.CREATED).json({ user });
     } catch (err) {
-      logger.fatal(err);
       if (err instanceof HttpException) {
         return next(err);
       }
+      logger.fatal(err);
       next(new HttpException());
     }
   };
@@ -45,10 +45,10 @@ export default class UserController extends Controller<User> {
       const user = await this.service.readOne(id);
       return res.status(this.statusCode.OK).json({ user });
     } catch (err) {
-      logger.fatal(err);
       if (err instanceof HttpException) {
         return next(err);
       }
+      logger.fatal(err);
       next(new HttpException());
     }
   };
@@ -63,10 +63,10 @@ export default class UserController extends Controller<User> {
       const user = await this.service.update(id, req.body);
       return res.status(this.statusCode.OK).json({ user });
     } catch (err) {
-      logger.fatal(err);
       if (err instanceof HttpException) {
         return next(err);
       }
+      logger.fatal(err);
       next(new HttpException());
     }
   };
@@ -81,10 +81,10 @@ export default class UserController extends Controller<User> {
       await this.service.delete(id);
       return res.status(this.statusCode.NO_CONTENT).end();
     } catch (err) {
-      logger.fatal(err);
       if (err instanceof HttpException) {
         return next(err);
       }
+      logger.fatal(err);
       next(new HttpException());
     }
   };
