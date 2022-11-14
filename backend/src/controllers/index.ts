@@ -32,9 +32,6 @@ export default abstract class Controller<T> {
       const obj = await this.service.read();
       return res.status(this.statusCode.OK).json(obj);
     } catch (err) {
-      if (err instanceof HttpException) {
-        return next(err);
-      }
       next(new HttpException());
     }
   };
