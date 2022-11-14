@@ -3,21 +3,26 @@ import { LoginInterface, LoginResponse } from '../interfaces/LoginInterface';
 import { CrudModel } from '../interfaces/CrudModelInterface';
 import { User } from '../interfaces/UserInterface';
 import UserModel from '../models/UserModel';
-import jsonWebToken from '../utils/jwt';
+import JsonWebToken from '../utils/jwt';
 import { HashHandler } from '../interfaces/HashHandler';
 import HashProvider from '../utils/HashProvider';
+import { TokenHandler } from '../interfaces/TokenHandler';
 
 export default class LoginService implements LoginInterface<User> {
   private model: CrudModel<User>;
 
   private hashHandler: HashHandler;
 
+  private tokenHandler: TokenHandler;
+
   constructor(
     model: CrudModel<User> = new UserModel(),
-    hashHandler: HashHandler = new HashProvider()
+    hashHandler: HashHandler = new HashProvider(),
+    tokenHandler: TokenHandler = new JsonWebToken()
   ) {
     this.model = model;
     this.hashHandler = hashHandler;
+    this.tokenHandler = tokenHandler;
   }
 
   public async login(obj: User): Promise<LoginResponse> {
@@ -31,7 +36,7 @@ export default class LoginService implements LoginInterface<User> {
       throw new HttpException(400, 'E-mail or password incorrect');
     }
     const userId = dbUser._id.toString();
-    const token = jsonWebToken.generate({ id: userId });
+    const token = this.tokenHandler.generate({ id: userId });
     return {
       user: { id: userId, name: dbUser.name, email: dbUser.email },
       token,
