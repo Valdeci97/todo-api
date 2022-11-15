@@ -31,9 +31,6 @@ export default class TaskTimeController {
       const tasks = await this.service.findByDay(id);
       return res.status(200).json(tasks);
     } catch (err) {
-      if (err instanceof HttpException) {
-        return next(err);
-      }
       next(new HttpException());
     }
   };
@@ -48,9 +45,6 @@ export default class TaskTimeController {
       const tasks = await this.service.findByWeek(id);
       return res.status(200).json(tasks);
     } catch (err) {
-      if (err instanceof HttpException) {
-        return next(err);
-      }
       next(new HttpException());
     }
   };
@@ -65,9 +59,6 @@ export default class TaskTimeController {
       const tasks = await this.service.findByDay(id);
       return res.status(200).json(tasks);
     } catch (err) {
-      if (err instanceof HttpException) {
-        return next(err);
-      }
       next(new HttpException());
     }
   };
@@ -82,9 +73,6 @@ export default class TaskTimeController {
       const tasks = await this.service.findByYear(id);
       return res.status(200).json(tasks);
     } catch (err) {
-      if (err instanceof HttpException) {
-        return next(err);
-      }
       next(new HttpException());
     }
   };
@@ -99,9 +87,6 @@ export default class TaskTimeController {
       const tasks = await this.service.findLate(id);
       return res.status(200).json(tasks);
     } catch (err) {
-      if (err instanceof HttpException) {
-        return next(err);
-      }
       next(new HttpException());
     }
   };
