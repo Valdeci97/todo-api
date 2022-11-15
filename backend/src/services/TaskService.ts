@@ -11,7 +11,7 @@ export default class TaskService extends RelationService<Task> {
     },
     DATE: {
       message: 'there is another task booked at same date',
-      code: 400,
+      code: 409,
     },
   };
 

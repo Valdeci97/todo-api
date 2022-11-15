@@ -2,20 +2,25 @@ import { Request, Response, NextFunction } from 'express';
 import HttpException from '../exceptions/HttpException';
 import { RequestWithBody } from '../interfaces/RequestWithBody';
 import { Task } from '../interfaces/TaskInterface';
+import { TokenHandler } from '../interfaces/TokenHandler';
 import RelationService from '../services/RelationService';
 import TaskService from '../services/TaskService';
-import jsonWebToken from '../utils/jwt';
+import JsonWebToken from '../utils/jwt';
 
 export default class TaskController {
   private service: RelationService<Task>;
+
+  private tokenHandler: TokenHandler;
 
   private route: string;
 
   constructor(
     service: TaskService = new TaskService(),
+    tokenHandler: TokenHandler = new JsonWebToken(),
     route: string = '/tasks'
   ) {
     this.service = service;
+    this.tokenHandler = tokenHandler;
     this.route = route;
   }
 
@@ -48,13 +53,10 @@ export default class TaskController {
     if (!authorization) return next(new HttpException(404, 'token not found'));
     try {
       const [, auth] = authorization.split(' ');
-      const token = jsonWebToken.decode(auth);
+      const token = this.tokenHandler.decode(auth);
       const tasks = await this.service.read(token.id);
       return res.status(200).json(tasks);
     } catch (err) {
-      if (err instanceof HttpException) {
-        return next(err);
-      }
       next(new HttpException());
     }
   };
