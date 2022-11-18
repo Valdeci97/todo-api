@@ -20,7 +20,7 @@ export default class App {
     this.app.use(RateLimiter.createRateLimiter());
   }
 
-  public async start(PORT: number | string = 3001): Promise<void> {
+  public async start(PORT: number | string): Promise<void> {
     await connectToDatabase();
     this.app.listen(PORT, () => logger.info(`Server running at port: ${PORT}`));
   }
