@@ -5,7 +5,10 @@
     "description": "Essa API tem como objetivo o gerenciamento de usuários e suas respectivas tarefas",
     "version": "1.0.0"
   },
-  "servers": [{ "url": "http://localhost:3001", "description": "API local" }],
+  "servers": [
+    { "url": "http://localhost:3001", "description": "API local" },
+    { "url": "https://todo-api-dev.onrender.com", "description": "Deploy" }
+  ],
   "paths": {
     "/users": {
       "post": {
