@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "src/index.ts",
+  "engines": {
+    "node": "18.x",
+    "npm": "8.x"
+  },
   "scripts": {
     "build": "babel src --extensions \".js,.ts\" --out-dir build --copy-files",
     "start": "node build/index.js",
