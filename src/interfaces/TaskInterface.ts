@@ -6,5 +6,5 @@ export interface Task {
   description: string;
   when: Date | string;
   done: boolean;
-  createdAt: Date;
+  createdAt: Date | string;
 }

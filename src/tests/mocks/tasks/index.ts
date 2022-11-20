@@ -7,7 +7,7 @@ export const task: Task = {
   description: 'Testando funcionamento do serviço de tasks',
   when: '2022-12-12T22:30:00.000Z',
   done: false,
-  createdAt: new Date(),
+  createdAt: new Date().toISOString(),
 };
 
 export const taskToUpdate: Task = {
@@ -17,5 +17,5 @@ export const taskToUpdate: Task = {
   description: 'Testando funcionamento do serviço de tasks',
   when: '2022-12-15T22:30:00.000Z',
   done: false,
-  createdAt: new Date(),
+  createdAt: new Date().toISOString(),
 };
