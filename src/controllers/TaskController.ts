@@ -45,7 +45,7 @@ export default class TaskController {
   };
 
   public read = async (
-    req: RequestWithBody<Task>,
+    req: Request,
     res: Response,
     next: NextFunction
   ): Promise<Response | void> => {

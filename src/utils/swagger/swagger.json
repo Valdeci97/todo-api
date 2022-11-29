@@ -433,12 +433,6 @@
         "description": "Tarefas de um usuário",
         "summary": "Retorna todas as tarefas de um usuário com base no id do usuário",
         "tags": ["Tasks"],
-        "parameters": [{
-          "name": "id",
-          "in": "path",
-          "description": "User id",
-          "required": true
-        }],
         "security": [{ "bearerAuth": [] }],
         "responses": {
           "200": {
@@ -448,7 +442,7 @@
                 "examples": {
                   "ok": {
                     "value": [{
-                      "_id": "63668fa4e27e79b50232f561",
+                      "id": "63668fa4e27e79b50232f561",
                       "userId": "6363daa6ab1e71a12204e9e4",
                       "category": "Estudos",
                       "title": "Conceitos de API",
@@ -511,7 +505,7 @@
                 "examples": {
                   "ok": {
                     "value": {
-                      "_id": "63668fa4e27e79b50232f561",
+                      "id": "63668fa4e27e79b50232f561",
                       "userId": "6363daa6ab1e71a12204e9e4",
                       "category": "Estudos",
                       "title": "Conceitos de API",
@@ -591,7 +585,7 @@
                 "examples": {
                   "updated": {
                     "value": {
-                      "_id": "63668fa4e27e79b50232f561",
+                      "id": "63668fa4e27e79b50232f561",
                       "userId": "6363daa6ab1e71a12204e9e4",
                       "category": "Viagem",
                       "title": "Conferência devOps",
@@ -696,7 +690,7 @@
                 "examples": {
                   "todayTasks": {
                     "value": [{
-                      "_id": "63668fa4e27e79b50232f561",
+                      "id": "63668fa4e27e79b50232f561",
                       "userId": "6363daa6ab1e71a12204e9e4",
                       "category": "Estudos",
                       "title": "Conceitos de API",
@@ -747,7 +741,7 @@
                 "examples": {
                   "weekTasks": {
                     "value": [{
-                      "_id": "63668fa4e27e79b50232f561",
+                      "id": "63668fa4e27e79b50232f561",
                       "userId": "6363daa6ab1e71a12204e9e4",
                       "category": "Estudos",
                       "title": "Conceitos de API",
@@ -798,7 +792,7 @@
                 "examples": {
                   "monthTasks": {
                     "value": [{
-                      "_id": "63668fa4e27e79b50232f561",
+                      "id": "63668fa4e27e79b50232f561",
                       "userId": "6363daa6ab1e71a12204e9e4",
                       "category": "Estudos",
                       "title": "Conceitos de API",
@@ -849,7 +843,7 @@
                 "examples": {
                   "yearTasks": {
                     "value": [{
-                      "_id": "63668fa4e27e79b50232f561",
+                      "id": "63668fa4e27e79b50232f561",
                       "userId": "6363daa6ab1e71a12204e9e4",
                       "category": "Estudos",
                       "title": "Conceitos de API",
@@ -900,7 +894,7 @@
                 "examples": {
                   "lateTasks": {
                     "value": [{
-                      "_id": "63668fa4e27e79b50232f561",
+                      "id": "63668fa4e27e79b50232f561",
                       "userId": "6363daa6ab1e71a12204e9e4",
                       "category": "Estudos",
                       "title": "Conceitos de API",
